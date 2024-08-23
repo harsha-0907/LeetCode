@@ -1,7 +1,7 @@
 # To check if the graph has a cycle in it
 
 
-def isCycle(v, adj):
+def isCycleBFS(v, adj):
     cnt = 0; queue = []
     not_visited = [i for i in range(v)]
     while not_visited != []:
@@ -24,7 +24,7 @@ def isCycle(v, adj):
 v = 5
 adj = [[1], [0, 2, 4], [1, 3], [2, 4], [1, 3]]
 
-if isCycle(v, adj):
+if isCycleBFS(v, adj):
     print("Cycle exists")
 else:
     print("No cycle exists")
