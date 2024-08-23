@@ -21,10 +21,29 @@ def isCycleBFS(v, adj):
                 queue.append(n)
     return False
 
+def isCycleDFS(v, adj):
+    stack = []; cnt = 0
+    not_visited = [i for i in range(v)]
+    while not_visited != []:
+        if stack == []:
+            stack.append(not_visited[0])
+        node = stack.pop()
+        not_visited.remove(node)
+        nodes = adj[node]
+        for n in nodes:
+            if n in not_visited:
+                if n in stack:
+                    return True
+                stack.append(n)
+    
+    return False
+
+
+
 v = 5
 adj = [[1], [0, 2, 4], [1, 3], [2, 4], [1, 3]]
 
-if isCycleBFS(v, adj):
+if isCycleDFS(v, adj):
     print("Cycle exists")
 else:
     print("No cycle exists")
