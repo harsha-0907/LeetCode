@@ -30,10 +30,32 @@ def wordLadder(beginword, endword, wordList):
     dfs(beginword, wordList, 0,[])
     return min_distance[0]
     
-def optimizedWordLadder(self, begin_word: str, end_word: str, word_list: List[str]) -> int:
-    
+def optimizedWordLadder(beginWord: str, endWord: str, wordList) -> int:
+    queue = [beginWord]; list1 = []; distance = 0; length = len(beginWord)
+    if endWord not in wordList:
+        return distance
+    while queue != []:
+        node = queue.pop(0)
+        if node in wordList:
+            wordList.remove(node)
+        for nword in wordList:
+            cnt_ = 0
+            for i in range(length):
+                if nword[i] != node[i]:
+                    cnt_ += 1
+                if cnt_ == 2:
+                    break
+            else:
+                if cnt_ == 1:
+                    if endWord == nword:
+                        return distance + 2
+                    else:
+                        list1.append(nword)
+        if queue == []:
+            queue = list(set(list1)); list1 = []
+            distance += 1
     return 0
 
-beginword = "hit"; endword = "cog"; wordList = ["hot","cog","dot","dog","hit","lot","log"]
-res = wordLadder(beginword, endword, wordList)
+beginword = "hit"; endword = "cog"; wordList = ["hot","dot","dog","lot","log"]
+res = optimizedWordLadder(beginword, endword, wordList)
 print(res)
