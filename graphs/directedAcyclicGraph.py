@@ -33,12 +33,33 @@ def checkCycle(vertices, adj):
     # If the loop is terminated return empty list as there is a cycle
     return []
 
+def isCyclic(vertices, adj):
+    def dfs(node, visited):
+        adjnodes = adj[node]
+        visited.add(node)
+        for n in adjnodes:
+            if n in visited:
+                return True
+            if dfs(n, visited):
+                return True
+        visited.remove(node)
+        visited1.add(node)
+        return False
+
+    visited1 = set()
+    for i in range(vertices):
+        if i not in visited1:
+            if dfs(i, set()):
+                return True
+
+    return False
 
 edges = [[1,0],[2,0],[3,1],[3,2]]
 vertices = 4
 adj = createAdjTable(vertices, edges)
 print(adj)
-res = checkCycle(vertices, adj)
+#res = checkCycle(vertices, adj)
+res = isCyclic(vertices, adj)
 print(res)
 
 """
