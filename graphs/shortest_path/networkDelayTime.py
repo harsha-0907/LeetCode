@@ -15,10 +15,10 @@ def calculateNetworkDelay(src, edges, n):
         node = queue.popleft()
         (pos, time) = node
         for nextnode in adj[pos]:
-            time = time + nextnode[1]
+            time1 = time + nextnode[1]
             if time < shortest_path[nextnode[0]]:
-                shortest_path[nextnode[0]] = time
-                queue.append((nextnode[0], time))
+                shortest_path[nextnode[0]] = time1
+                queue.append((nextnode[0], time1))
     
     maxtime = 0
     for i in shortest_path:
