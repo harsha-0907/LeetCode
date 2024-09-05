@@ -1,43 +1,24 @@
 # To calculate the sum of edges of a minimum spanning tree
 import heapq
+from typing import List
 
-def mstWithEdges(n, edges):
-    edges = sorted(edges, key= lambda x: x[2])
-    #print(edges)
-    visited = set()
-    u_, v_, wt = edges[0]
-    visited.add(u_); visited.add(v_); tot = wt
-    for edge in edges[1:]:
-        u_, v_, wt = edge
-        if u_ not in visited:
-            visited.add(u_)
-            tot += wt
-        elif v_ not in visited:
-            visited.add(v_)
-            tot += wt
-
-    return tot
-
-def mstWithAdj(n, adj):
-    # MST with the given adjacency list
-    src = 0
-    heapq.heappush(queue, (0, 0, -1))   # (dist, nextnode, node)
-    for i in range(n):
-        for edge in adj[i]:
-            heapq.heappush(queue, (edge[1], edge[0], i))
-    
-    tot = 0
+def convertToMST(n, adj) -> List[List[int, int]]:
+    queue = [(0, 0, -1)]; tot = 0
+    mst = []; visited = set()
     while queue:
-        dist, nn, n = heapq.heappop()
-        if nn not in visited:
-            tot += dist
-            visited.add(nn)
-        elif n not in visited:
-            tot += dist
-            visited.add(n)
-    
+        node = heapq.heappop(queue)
+        wt, node, parent = node
+        if node in visited:
+            continue
+        tot += wt
+        if parent != -1:
+            mst.append((parent, node))
+            #print(wt)
+        visited.add(node)
+        adjnodes = adj[node]
+        for nn in adjnodes:
+            npos, wt1 = nn
+            if npos not in visited:
+                heapq.heappush(queue, (wt1, npos, node))
+        
     return tot
-n = 2
-edges = [[0, 1, 5]]
-res = mst(n, edges)
-print(res)
