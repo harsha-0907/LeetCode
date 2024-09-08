@@ -10,11 +10,49 @@
 from collections import deque
 
 def criticalConnection(n, edges):
-    adj = [float('inf') for i in range(n)]
-    
+        # Create an adjacency list
+        adj = [[] for i in range(n)]
+        for edge in edges:
+            u_, v_ = edge
+            adj[u_].append(v_)
+            adj[v_].append(u_)
+        
+        visited = {i:0 for i in range(n)}; criticaledges = set()
+        time = 1
+        firstTime = dict()
 
-n = 6
-edges = [[0,1],[1,2],[2,0],[1,3],[3,4],[4,5],[5,3]]
+        def dfs(node, parent, fC):
+            # Lets mark the node as visited
+            nonlocal time
+            #print(node, fC)
+            visited[node] = 1
+            firstTime[node] = actualdist = fC
+            adjnodes = adj[node]
+            for nextnode in adjnodes:
+                if nextnode == parent:
+                    continue
+                elif visited[nextnode] == 1:
+                    actualdist = min(actualdist, firstTime[nextnode])
+                    #print(node, nextnode, actualdist)
+                    # This edge is not a critical edge
+                else:
+                    time += 1
+                    actual = dfs(nextnode, node, time)
+                    #print(actual > fC, actual, fC, node, nextnode)
+                    if actual > fC:
+                        criticaledges.add((node, nextnode))
+                    else:
+                        actualdist = min(actualdist, actual)
+            
+            print("Final ",node, actualdist)
+            return actualdist
+        
+        dfs(0, None, time)
+
+        #print(criticaledges, time)
+        return criticaledges
+n = 4
+edges = [[0,1],[1,2],[2,0],[1,3]]
 
 res = criticalConnection(n, edges)
 
