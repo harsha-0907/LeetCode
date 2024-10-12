@@ -1,9 +1,23 @@
 Important Points for Greedy(Specially for questions innvolving intervals)
 
+*** For General Questions innvolving Intervals ***
 1. For any question that deals with ranges just follow the train model
 2. Sort both the arrival times and departure times.
 3. Use 2-pointer method to keep a note of both the node to be added and removed with the (pos, end_pos) variables
 4. Update them whenever the respective time's are lesser
+
+Complexities:
+
+Space Complexity : O(n)
+Time Complexity  : O(nlogn)
+
+
+*** For Questions dealing with Minimum things in a list of intervals ***
+
+1. Always make sure that the intervals are sorted in the order of the finishing times
+2. Because a interval that gets finsihed first wiill give more opportunity to the remaining intervals
+3. After that we follow the train-station approach to solve the problem
+
 
 Complexities:
 
